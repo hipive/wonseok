@@ -81,21 +81,23 @@
 % Moreover, it needs high computational time to forecast load distributions in 10 zones. We use the Extreme Gradient Boosting Machine, which is the most effective regression model on these days.
 
 
+%at every hour on multiple nodes
 
 \begin{abstract}
-\textcolor{blue}{We forecast the long-term electricity load at every hour on multiple nodes to allocate transmission expansion costs among stakeholders in an efficient way based on predicted power flow on a transmission network. After few months, we cannot obtain the hourly numerical weather prediction (NWP), and we cannot forecast the demand with the same accuracy of short-term forecasting, so we forecast the probabilistic distribution of load.
+\textcolor{blue}{We allocate transmission expansion costs among stakeholders in justifiable way based on the long-term electricity load forecasting 
 
-
- 
- We sample weather scenarios after a month through the Gibbs sampling from multivariate distributions of temperature and dew point observed from eight weather stations for several years. Then, we convert the weather scenarios into the load distributions, which are combined to build the final distribution through the advanced kernel density estimation.}
-
- 
- 
-% Problem 3: 
-% Solution 3: Hierarchical Graphical Modeling
-Furthermore, the total load in the ISO-NE cannot have corresponding weather scenarios. We forecast the total load by combining the load from several states in a stepwise manner by using the hierarchical graphical model. 
+ After few months, we cannot forecast the demand with the same accuracy of short-term forecasting, because we cannot obtain the hourly numerical weather prediction (NWP), so we forecast the probabilistic distribution of load. We sample future weather scenarios through the Gibbs sampling from multivariate distributions of temperature and dew point from eight weather stations for several years. Then, we convert the weather scenarios into the load distributions, which are combined to build the final distribution through the advanced kernel density estimation. Finally, we forecast the total load by combining the load from several states in a stepwise manner by using the hierarchical graphical model. 
 %
-We verify our approach using the data from the Global Energy Forecasting Competition 2017, and our approach outperforms the benchmarks at all zones.
+We use the predicted load scenarios to allocate transmission expansion costs for future increased expected load. 
+%
+The total cost can be calculated based on the power transfer distribution factors, but the transmission costs should be allocated by the cooperative competition among stakeholders.
+%
+We verify our transmission cost allocation algorithm based on long-term  load forecasting by using the data from the Global Energy Forecasting Competition 2017. For forecasting performance, our approach outperforms the benchmarks at all zones. Furthermore, allocated costs depend on profits obtained from the transmission expansion, so our allocation algorithm is justifiable.}
+
+%  to allocate transmission expansion costs  based on predicted power flow on a transmission network.
+
+ 
+
 \end{abstract}
 
 
@@ -196,6 +198,95 @@ Finally, we present a method of cost-allocation among utilities using cooperativ
 %% The contents of this paper are as follows. In Section $\rm{2}$, we introduce the forecasting environment and the data used to verify our algorithm. In Section $\rm{3}$, we introduce probabilistic graphical model and propose the graphical model of load forecasting problem and NWP scenarios are estimated by the Gibbs sampling. In Section $\rm{4}$, the XGBoost is introduced. And marginal load distribution is estimated by the kernel density estimation.In Section $\rm{5}$ we measure the performance of several forecasting techniques and compare the performance of different forecasting structures with that of the proposed algorithm. Finally, Section $\rm{6}$ summarizes the contents.
 %% -----------------------------------------------------------------------------------------------------------------
 
+
+
+
+
+
+
+
+\newpage
+
+\section{Transmission Cost Allocation}
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Method A}
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Method B}
+
+
+
+
+
+
+
+
+
+
+\subsection{Limitations}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
 \section{Forecasting Environment and Data Description}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
