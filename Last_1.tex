@@ -54,20 +54,43 @@
 
 
 
-% month-ahead
 
-\begin{abstract}
+
 % What did we do?
 % Forecast the distribution in 10 zones
-We forecast the distributions of electricity load a month later in 10 zones under the supervision of New England independent system operator (ISO-NE). We forecast the distributions every hour for a month and represent them by 10 quantiles.
+
+% We forecast the distributions every hour for a month and represent them by 10 quantiles.
+
+
+
 % Problem 1: we don't have future predicted weather information, which should be interrelated.
 % Solution 1: Generate Scenarios based on gibbs
 % Kernel Density
 % Problem: How to combine distribution of many scenarios?
-However, there is no numerical weather predictions a month later. Therefore we predict weather scenarios by using multi-year weather observations. We extract primal features of several observations of temperature and dew point at eight weather stations in ISO NE through PCA analysis. Then we design multivariate distribution through kernel density estimation using Gaussian Kernel by considering inter-correlation of time effect. We synthesize multiple weather scenarios through Gibbs sampling. Then, we convert the scenarios to the load distributions, which are combined to the final distribution through the advanced kernel density estimation algorithm.
+
+
+% Therefore, we predict weather scenarios 
+
+%  and convert them to demand scenarios based on multi-year weather observations. In this process, 
+
+%  We extract primal features of several observations of temperature and dew point at in ISO NE through PCA analysis. 
+
+%  
 % Problem 2: Slow forecasting speed / multi zones
-% Solution 2: XGBoost
-Moreover, it needs high computational time to forecast load distributions in 10 zones. We use the Extreme Gradient Boosting Machine, which is the most effective regression model on these days.
+% Solution 2: XGBoost 
+% Moreover, it needs high computational time to forecast load distributions in 10 zones. We use the Extreme Gradient Boosting Machine, which is the most effective regression model on these days.
+
+
+
+\begin{abstract}
+\textcolor{blue}{We forecast the long-term electricity load at every hour on multiple nodes to allocate transmission expansion costs among stakeholders in an efficient way based on predicted power flow on a transmission network. After few months, we cannot obtain the hourly numerical weather prediction (NWP), and we cannot forecast the demand with the same accuracy of short-term forecasting, so we forecast the probabilistic distribution of load.
+
+
+ 
+ We sample weather scenarios after a month through the Gibbs sampling from multivariate distributions of temperature and dew point observed from eight weather stations for several years. Then, we convert the weather scenarios into the load distributions, which are combined to build the final distribution through the advanced kernel density estimation.}
+
+ 
+ 
 % Problem 3: 
 % Solution 3: Hierarchical Graphical Modeling
 Furthermore, the total load in the ISO-NE cannot have corresponding weather scenarios. We forecast the total load by combining the load from several states in a stepwise manner by using the hierarchical graphical model. 
@@ -77,7 +100,24 @@ We verify our approach using the data from the Global Energy Forecasting Competi
 
 
 
-%================================================================
+
+\begin{IEEEkeywords}
+Wind power scenario, Wind power characteristics, Deep convolutional generative adversarial network
+\end{IEEEkeywords}
+	
+
+
+% in 10 zones in New England independent system operator (ISO-NE). 
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -254,7 +294,7 @@ In our application, we use the graphical model to design the multivariate distri
 
 \begin{figure}[t!]
 \centering
-  \includegraphics[width=3.5in]{Contour_AI}
+  \includegraphics[width=3.5in]{Contour}
 \caption{Non-parametric bivariate distribution of dew point and dry bulb is represented. Two random variable show high correlation, which makes  weather scenario generation from joint density of these variable more convincing.}
 \label{Dependency}       % Give a unique label
 \end{figure}
