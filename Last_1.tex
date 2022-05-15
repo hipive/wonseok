@@ -78,24 +78,16 @@
 %  
 % Problem 2: Slow forecasting speed / multi zones
 % Solution 2: XGBoost 
-% Moreover, it needs high computational time to forecast load distributions in 10 zones. We use the Extreme Gradient Boosting Machine, which is the most effective regression model on these days.
+% Moreover, it needs high computational time to forecast load distributions in 10 zones. We use the Extreme Gradient Boosting Machine
 
 
-%at every hour on multiple nodes
 
 \begin{abstract}
-\textcolor{blue}{We allocate transmission expansion costs among stakeholders in justifiable way based on the long-term electricity load forecasting 
-
- After few months, we cannot forecast the demand with the same accuracy of short-term forecasting, because we cannot obtain the hourly numerical weather prediction (NWP), so we forecast the probabilistic distribution of load. We sample future weather scenarios through the Gibbs sampling from multivariate distributions of temperature and dew point from eight weather stations for several years. Then, we convert the weather scenarios into the load distributions, which are combined to build the final distribution through the advanced kernel density estimation. Finally, we forecast the total load by combining the load from several states in a stepwise manner by using the hierarchical graphical model. 
+\textcolor{blue}{We allocate transmission expansion costs among stakeholders in justifiable way based on the long-term hourly electricity load forecasting from multiple nodes. Since we cannot obtain the numerical weather prediction in far future, we forecast the probabilistic distribution of hourly load. Then, through the Gibbs sampling, we sample future weather scenarios from multivariate distributions of temperature and dew point from eight weather stations. We convert the weather scenarios into the load distributions by using the hierarchical graphical model. Load distributions are combined to build the final distribution through the advanced kernel density estimation. 
 %
-We use the predicted load scenarios to allocate transmission expansion costs for future increased expected load. 
+We calculate the expansion costs based on the power transfer distribution factors, which are calculated with future load scenarios on each transmission line. The cost are allocated through the cooperative competition among stakeholders.
 %
-The total cost can be calculated based on the power transfer distribution factors, but the transmission costs should be allocated by the cooperative competition among stakeholders.
-%
-We verify our transmission cost allocation algorithm based on long-term  load forecasting by using the data from the Global Energy Forecasting Competition 2017. For forecasting performance, our approach outperforms the benchmarks at all zones. Furthermore, allocated costs depend on profits obtained from the transmission expansion, so our allocation algorithm is justifiable.}
-
-%  to allocate transmission expansion costs  based on predicted power flow on a transmission network.
-
+We verify our long-term load forecasting and cost allocation algorithms by using the data from the Global Energy Forecasting Competition 2017. For forecasting performance, our approach outperforms the benchmark in the competition. Allocated costs depend on profits obtained from the transmission expansion, so our allocation algorithm is justifiable.}
  
 
 \end{abstract}
