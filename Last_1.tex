@@ -8,6 +8,7 @@
 %\usepackage{program}
 
 \usepackage[caption=false,font=footnotesize]{subfig}
+\usepackage{xcolor}
 \usepackage{color}
 \usepackage{cite}
 \usepackage{amsmath}
@@ -27,6 +28,9 @@
 \usepackage{amsmath}
 
 
+%\usepackage[switch,right]{lineno}
+%\linenumbers
+
 \graphicspath{{./Pictures/}}
 
 
@@ -37,7 +41,7 @@
 %\linespread{2}
 
 \begin{document}
-\title{Mid-Term Probabilistic Load Forecasting Based on Multivariate Weather Scenarios By Gibbs Sampling}
+\title{Distribution Expansion Cost Allocation Algorithm Based on Stochastic Cooperative Game Theory and Long-Term Forecasting with Gibbs Sampling}
 
 \author{Wonseok~Choi,~\IEEEmembership{Student Member,~IEEE,} ~Hyeonjin~Kim,~\IEEEmembership{Student Member,~IEEE,}
 	Duehee~Lee,~\IEEEmembership{Member,~IEEE,}
@@ -46,115 +50,304 @@
 
 
 
+
 % The paper headers
-\markboth{IEEE Transaction on Smart Grid}%
+\markboth{IEEE Transaction on Power System}
 {Shell \MakeLowercase{\textit{et al.}}: Bare Demo of IEEEtran.cls for Journals}
 \maketitle
 
 
 
-
-
-% What did we do?
-% Forecast the distribution in 10 zones
-
-% We forecast the distributions every hour for a month and represent them by 10 quantiles.
-
-
-
-% Problem 1: we don't have future predicted weather information, which should be interrelated.
-% Solution 1: Generate Scenarios based on gibbs
-% Kernel Density
-% Problem: How to combine distribution of many scenarios?
-
-
-% Therefore, we predict weather scenarios 
-
-%  and convert them to demand scenarios based on multi-year weather observations. In this process, 
-
-%  We extract primal features of several observations of temperature and dew point at in ISO NE through PCA analysis. 
-
-%  
-% Problem 2: Slow forecasting speed / multi zones
-% Solution 2: XGBoost 
-% Moreover, it needs high computational time to forecast load distributions in 10 zones. We use the Extreme Gradient Boosting Machine
-
-
-
 \begin{abstract}
-\textcolor{blue}{We allocate transmission expansion costs among stakeholders in justifiable way based on the long-term hourly electricity load forecasting from multiple nodes. Since we cannot obtain the numerical weather prediction in far future, we forecast the probabilistic distribution of hourly load. Then, through the Gibbs sampling, we sample future weather scenarios from multivariate distributions of temperature and dew point from eight weather stations. We convert the weather scenarios into the load distributions by using the hierarchical graphical model. Load distributions are combined to build the final distribution through the advanced kernel density estimation. 
+\textcolor{blue}{We propose the distribution expansion cost allocation algorithm based on the long-term load and renewable energy scenario forecasting. For the distribution expansion, the fluctuation of distributed electricity load and renewable energy sources (RES) should be particularly considered to allocate costs based on maximum power flows and their profits. We reflect the spatio-temporal correlations of distributed long-term load and RES into the probabilistic distributions of future scenarios from multiple nodes through the Gibbs sampling.
 %
-We calculate the expansion costs based on the power transfer distribution factors, which are calculated with future load scenarios on each transmission line. The cost are allocated through the cooperative competition among stakeholders.
+We sample future weather scenarios from multivariate distributions of temperature and dew point from eight weather stations. We convert the weather scenarios into the load and RES distributions by using the hierarchical graphical model. 
 %
-We verify our long-term load forecasting and cost allocation algorithms by using the data from the Global Energy Forecasting Competition 2017. For forecasting performance, our approach outperforms the benchmark in the competition. Allocated costs depend on profits obtained from the transmission expansion, so our allocation algorithm is justifiable.}
- 
-
+Currently, the costs are allocated among stakeholders based on averaged durations of maximum power flows, so the allotment cannot be linearly proportional to the expected profits and distribution usages. Therefore, we allocate the costs by using stochastic cooperative game theory based on long-term scenarios. Besides, we detect and remove a trigger project, which extremely increases the overall expansion cost.
+%
+We verify our algorithms by using the data from the Global Energy Forecasting Competition 2017. For forecasting performance, our approach outperforms the benchmark in the competition. Allocated costs depend on profits obtained from the transmission expansion, so our allocation algorithm is justifiable.}
 \end{abstract}
 
 
 
+% long-term forecasting and cost allocation
 
+%The results of SCGT are averaged based on the fuzzy weighted average (FWA) theory.
+
+
+
+% Therefore, the cost allocating of existing methods does not accept this volatility, so it could cause irrationality if applied to current network.
+
+%Distributions are combined to build the final distribution through the advanced kernel density estimation. 
+
+
+% Such benefit calculation result in discrete representation of stochastic benefit associated with time for each period, and by substituting this for SCGT
+
+
+% muiltiple node
+% stakeholders
+
+% We allocate transmission expansion costs among stakeholders based on the long-term hourly electricity load forecasting from multiple nodes. 
+
+%Since we cannot obtain the numerical weather prediction in far future, we forecast the probabilistic distribution of hourly load. 
+
+
+% We calculate the expansion costs based on the power transfer distribution factors, which are calculated with future load scenarios on each transmission line. The cost are allocated through the cooperative competition among stakeholders.
+
+
+
+% Quantile Regression
+%we first make a demand map according to confidence interval through quantile regression using Gibbs sampling  Quantile regression allows us to calculate the utility benefits  by outputting discrete probabilistic demand distribution over time. 
+
+
+%  However, the higher penetration ratio of renewable energy in distribution, the higher volatility of demand. 
+
+
+% In case of distribution, expected demand of each consumption zone was determined and contribution calculated.
+
+% Common network expansion cost, including general distribution, are allocated by mathematically calculating contribution of the line. 
+
+
+	
 \begin{IEEEkeywords}
-Wind power scenario, Wind power characteristics, Deep convolutional generative adversarial network
+Gibbs sampling, Stochastic cooperative game theory, Distribution network expansion plan, Cost allocation
 \end{IEEEkeywords}
 	
+	
+	
+	
 
-
-% in 10 zones in New England independent system operator (ISO-NE). 
-
-
-
-
-
-
-
-
-
-
-
-
-
+% \IEEEPARstart{T}{he} 
 \section{Introduction}
 % --------------------- Currnet Status ------------------------------
 % --------------------- Why we have to forecast the load? 
-\IEEEPARstart{I}{ndependent} system operators (ISOs) should predict electricity loads so that the total generation amount from resource entities (REs) meets the total load from load serving entities (LSEs) in an electricity market~\cite{chen2009short}. ISOs can control generation amounts by giving dispatch orders to REs, but ISOs have minimal financial control over the load. The load is inelastic to the electricity price, and ISOs cannot easily change the electricity usage in real time~\cite{Kirschen}. Therefore, for stable system operation, the power system balances through demand forecasting, and for this purpose, a more sophisticated forecasting model is needed~\cite{76685}.
-%% -------------------------------------------------
+
+\subsubsection{Current}
+\textcolor{teal}{The distribution should be expanded to accept the pear-to-pear transaction, distributed generated renewable energy sources (RES), and storage systems.}
+
+% 각각 3가지에 대해서 왜 새로운 GRID mordenization 상황에서 배전망 업그레이드가 필요한지 적자.
+
+\vspace{1in}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+% 전통적인 distribution 또는 내용을 찾기 힘들면 transmission의 확장 방법
+% 전통적인 distribution expansion plan을 통해서 수요와 신재생에너지 예측이 필요하다는 것을 도출한다.
+\subsubsection{Distribution Expansion Plan}
+\textcolor{magenta}{Generally, the distribution expansion plan can be scheduled to satisfy the maximum load flows.
+%
+%
+%
+%
+%
+%
+%
+%
+%
+Then, we have to perform the long-term load and RES forecasting.}
+
+
+
+
+
+
+
+
+\vspace{1.2in}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+% 3-5가지 long-term load forecasting 방법 적고 비판
+% 단순히 3-5가지 아무 방법을 언급하는 것보다는 적용 사례 3-5가지를 적고, 사례별로 내려가는 게 좋을 듯. 거기다 기술들이 나온 시간 순서도 고려해서.
+% short 나 middle 들어가지 않고 바로 long. 필요하면 short나 middle은 한 두 문장 정도로 요약
+\subsubsection{Long-Term Load Forecasting}
+\textcolor{gray}{There have bee much research about long-term load forecasting.}
 
 
 %%  ------------   About the forecasting duration.--------------------
-Load forecasting can be classified into short-term, mid-term, and long-term forecasting. In short-term forecasting, the load is forecasted based on the numerical weather prediction (NWP) up to two weeks ahead until the NWP is available. In mid-term forecasting, the load is forecasted between two weeks and three years. Finally, long-term forecasting covers the load forecasting for three years or more. Normally in long-term forecasting, in order to reflect the effect of human activity on the load in the future, the effects of economic growth should be considered~\cite{Tao2014}. 
-%% ----------------------------------------------------------------------------------------------------------------
+Long-term forecasting covers the load forecasting for three years or more. Normally in long-term forecasting, in order to reflect the effect of human activity on the load in the future, the effects of economic growth should be considered~\cite{Tao2014}. 
 
 
-%% ------------------  Strength of Mid-term------------------------   
-Among the three different types of load forecasting, mid-term probabilistic load forecasting is the most beneficial to power system planning. For example, the required amount of ancillary services should be estimated a month ahead based on load forecasts, so short-term forecasting is not a proper approach for forecasting load, and long-term forecasting is not as accurate as mid-term forecasting. Furthermore, mid-term load forecasting is required to prepare unit commitment and maintenance schedules a month ahead of time based on the load forecasts~\cite{burger2014managing}.
-%%-------------------------------------------------------------
 
 
-%% ----------Why is the Mid-term forecast complex-------------------
+
+
+% 예비력 정도는 long-term 사례로 적어도 되겠다.
+For example, the required amount of ancillary services should be estimated a month ahead based on load forecasts, so short-term forecasting is not a proper approach for forecasting load, and long-term forecasting is not as accurate as mid-term forecasting. Furthermore, mid-term load forecasting is required to prepare unit commitment and maintenance schedules a month ahead of time based on the load forecasts~\cite{burger2014managing}.
+
+
+
+
+
+% 원래는 mid-term에 대해 적힌 내용인데 long-term에 대해서도 적자.
+%% ----------Why is the Long-term forecast complex-------------------
 While mid-term forecasting has many benefits, mid-term load forecasting is the most complex. Ordinary load forecasting models use NWP which includes weather variables like temperature, humidity, data, and time~\cite{xie2016temperature} that affect humans' load usage. If NWP data exists, the load can be predicted using the relationship between the NWP and the load~\cite{bacher2013short}. However, NWP can only produce effective results when used for forecasts of up to two weeks. So, it is difficult to use NWP data for mid-term load forecasting. 
 %%-------------------------------------------------------------------
+
+
+
 
 %%--------- The method when existing method cannot use---------------
 When NWP data is unavailable, time series models have been used to forecast loads recursively~\cite{TIMESERIES}. Another method involves estimating future NWP scenarios from the historical weather data, and using these scenarios to predict future load~\cite{xie2016temperature}. 
 
+
+
+
+
+
+
+\subsubsection{Probabilistic Load Forecasting}
+\textcolor{cyan}{In order to overcome the low accuracy of long-term load forecasting, generally the probabilistic load forecasting methods have been used to provide the probabilistic distribution of load forecasts.}
+
+
 Recently, probabilistic load forecasting has been proposed to circumvent unavailable NPW~\cite{xie2016temperature}. In probabilistic load forecasting, future NWP scenarios are synthesized and converted to future load scenarios, and then, point forecasts can be made based on the mean or median of the marginal distribution of the future load scenarios.
 %%------------------------------------------------------------------
 
-%% in this chapter
 
-%% ------------------------  Literature Review ---------------------
+
+
+
+
+
 %% ------------------------ Generating Scenario -------------------------
 There is much literature about mid-term probabilistic load forecasting. One way to synthesize NWP scenarios is to reuse the historical data. In~\cite{Tao2014}, ten years of the historical temperature data was used to generate 10 different temperature scenarios, which were then used to predict 10 different load forecasts. However, only a limited number of scenarios can be obtained from historically measured data, and this will reduce forecasting accuracy. In~\cite{Jingrui2015}, to increase the number of scenarios, forecasting errors were collected by comparing the predicted values with the actual values. The errors were modeled as a normal distribution, where an infinite number of scenarios can be sampled.  Many participants at global energy forecasting competition  (GEFCom) 2017 used an hourly sampling method to synthesize temperature scenarios~\cite{hong2019global}. 
+
+
+\vspace{1in}
+
+
+
+
+
+
+
+% 확률 예측을 위한 sampling 방법에 대해 공부
+% spatio-temporal 관련된 내용을 공부하자.
+% 일단 시간 축에 대한 sampling이 필요하다.
+% 그리고 공간에 대한 sampling이 필요하다.
+% 각각의 경우에 대해 sampling 하는 사례를 적고, 둘다 sampling 하는 경우도 적자.
+\subsubsection{Sampling}
+\textcolor{red}{Future load can be converted from future weather scenarios, which can be sampled from multivariate distributions of different weather variables and locations.}
+
+
+
+\vspace{1in}
+
+
 
 However sampling from one-dimensional distribution cannot consider relative humidity (RH) which has a significant effect on load forecasting~\cite{xie2016relative}. 
 
 Also~\cite{xie2017variable} showed that the hourly or daily ahead data for temperature can be used to improve the preciseness of load forecasting. But, hourly samples cannot consider the joint probability between samples of different times. Also using hourly independent samples, matching time ahead data might deteriorate the correlation between features.  
-%% ----------------------------------------------------------------------------------------------------------------
-%%-----------------------------------------------------------------------
-% something needs to fullfill this chapter
-% there are three keywords- multi-Gaussian distribution, quantile regression, kernel density algorithm 
-%%-----------------------------------------------------------------------
+%%
+
+
+
+
+
+
+
+
+
+
+
+
+\subsubsection{Point Forecasting XGBoost}
+\textcolor{cyan}{Although we cannot expect an accurate point value in the probabilistic forecasting, the fast and accurate enough algorithm is still necessary to convert future weather scenarios into load forecasts.}
+
+
+
+\vspace{1.3in}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsubsection{Detecting Triggering projects}
+\textcolor{orange}{After the distribution expansion plan is scheduled based on long-term forecasts, in particular, the distribution expansion is a radial network, so there could be an expansion plan, which locates in a bottle neck and causes extremely high expansion costs. If we can remove that plan or allocate the cost into stakeholders, we can expedite expansion and reduce the total expansion cost. }
+
+
+
+
+
+\vspace{1in}
+
+
+
+
+
+
+
+\subsubsection{Cost Allocation}
+\textcolor{olive}{The cost of a scheduled distribution expansion plan should be allocated to stakeholders. There have been several studies on the transmission expansion cost allocation.}
+
+
+
+\vspace{1in}
+
+
+
+
+
+
+
+%-----------------------------------------------------------------------
 
 %% --------------------    Averaging the distribution -------------
 %%Second, the quantile regression algorithm can be used to estimate quantiles of the error distribution. If the first and second methods are combined, the quantiles of many load scenarios are averaged to generate the final load quantile. In~\cite{Gaillard}, the error distribution of each temperature scenario is obtained through the quantile generalized additive model, which is also known as an ensemble model. The error distributions from 800 temperature scenarios are averaged to estimate a single final error distribution of the future load. However, the averaged temperature scenario, which is the uniform weighted average of temperature from 25 weather stations, is used. If all temperature scenarios from 25 weather stations are used, a better performance might be obtained because sufficient information of 25 temperature scenarios could be utilized.
@@ -166,7 +359,26 @@ Also~\cite{xie2017variable} showed that the hourly or daily ahead data for tempe
 %% ------------------------ KDE --------------------------------
 %%
 
-%% --------------------------------------   Problem Description.    --------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsubsection{Task}
 In this study, we develop an advanced algorithm for mid-term probabilistic load forecasting. First, as mentioned above, many studies used a one-dimensional temperature scenario, whereas we sample the interrelated temperature and dew point  scenarios from their multivariate Gaussian distribution (MGD). In this process we also consider the daily patterns and dependency between hourly weather data using joint distribution of hourly random variables. %%We compare the performance between our method to the single dimensional scenarios and also the  historical scenarios.
 
 Second, we propose a probabilistic graphical model (PGM) which can provide an intuitive graphical model of the joint probabilities when considering a problem. PGM can visualize dependency and relationships between random variables and simplify marginal probability.
@@ -195,62 +407,16 @@ Finally, we present a method of cost-allocation among utilities using cooperativ
 
 
 
+\subsubsection{Contribution}
 
-\newpage
-
-\section{Transmission Cost Allocation}
-
-
-
-
-
-
-
-
-
-
-
-
-\subsection{Method A}
-
-
-
-
-
-
-
-
-
-
-
-\subsection{Method B}
-
-
-
-
-
-
-
-
-
-
-\subsection{Limitations}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Our contributions are as follows:
+\begin{enumerate}	
+	\item We synthesize future WPG scenarios with the same statistical characteristics of actual WPG.
+	\item We develop a novel PSD estimation method to reduce the PSD variance.	
+	\item We model a novel flexibility index that can consider the long and short-term variability of WPG.	
+	\item We develop a recursive algorithm that can calculate the optimal amounts of flexible resources.
+	\item We measure the value of the smoothing effect as a function of the total wind power capacity.
+\end{enumerate}
 
 
 
@@ -278,7 +444,108 @@ Finally, we present a method of cost-allocation among utilities using cooperativ
 
 
 \newpage
-\section{Forecasting Environment and Data Description}
+\section{Distribution Expansion Cost Allocation Algorithms}
+
+
+
+
+\subsection{Distribution Expansion Planning}
+
+
+
+
+
+
+\subsection{Traditional Cost Allocation Algorithms}
+
+
+
+
+
+
+\newpage
+\subsection{PJM Expansion Protocol}
+
+
+
+
+
+\subsection{Triggering Expansion Project}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+
+\section{Scenario Generation}
+
+%% 1. Data Explanation
+In this section graphical modeling and Gibbs sampling are introduced. Observed temperature and dew point are designed as a MGD based on the graphical modeling, and their scenarios are synthesized based on the Gibbs sampling.
+
+
+
+%A series of events or a system are represented by variables and observed by measurement of variables, and a distribution of multiple measurements is represented by a multivariate distribution of variables. 
+
+% The conditional independency is very useful when only few variables in a multivariate distribution are observed.}  
+
+%We can think of directed graph as a filter that allows a distribution to pass through if it can be expressed as the factorized implied. 
+
+
+
+% Necessity of graphical modeling: Simplify the full joint distribution by using the conditional dependency
+
+
+
+%In order to represent the multivariate distribution, parameters to represent the dependencies among variables should be specified, so the more variables are in the distribution, the more parameters are specified. 
+
+
+\subsection{Forecasting Environment and Data Description}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 In this study, the load is forecasted by following the forecasting environment of the GEFCom 2017. The distributions of month-ahead load from 10 zones should be forecasted at every hour for 31 days upto two month ahead. The distribution is represented by nine quantiles from 10\% to 90\% at every 10\%. 
@@ -306,28 +573,6 @@ L({q_a},y) = \left\{ {\begin{array}{*{20}{c}}
 \end{array}} \right.
 \end{equation}
 where $a$ represents a quantile percentage, $q_a$ represents the quantile prediction, and $y$ represents the target value.
-
-
-\section{Scenario Generation}
-
-%% 1. Data Explanation
-In this section graphical modeling and Gibbs sampling are introduced. Observed temperature and dew point are designed as a MGD based on the graphical modeling, and their scenarios are synthesized based on the Gibbs sampling.
-
-
-
-%A series of events or a system are represented by variables and observed by measurement of variables, and a distribution of multiple measurements is represented by a multivariate distribution of variables. 
-
-% The conditional independency is very useful when only few variables in a multivariate distribution are observed.}  
-
-%We can think of directed graph as a filter that allows a distribution to pass through if it can be expressed as the factorized implied. 
-
-
-
-% Necessity of graphical modeling: Simplify the full joint distribution by using the conditional dependency
-
-
-
-%In order to represent the multivariate distribution, parameters to represent the dependencies among variables should be specified, so the more variables are in the distribution, the more parameters are specified. 
 
 
 
@@ -376,7 +621,7 @@ In our application, we use the graphical model to design the multivariate distri
 
 \begin{figure}[t!]
 \centering
-  \includegraphics[width=3.5in]{Contour}
+  \includegraphics[width=3.5in]{Contour_AI}
 \caption{Non-parametric bivariate distribution of dew point and dry bulb is represented. Two random variable show high correlation, which makes  weather scenario generation from joint density of these variable more convincing.}
 \label{Dependency}       % Give a unique label
 \end{figure}
@@ -695,6 +940,27 @@ Finally, when the GBM forecasts the future value for new data, GBM generates out
 %Meinshausen, N. "Quantile Regression Forests." Journal of Machine Learning Research, Vol. 7, 2006, pp. 983?999.
 
 
+
+
+\subsection{XGboost}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
 \subsection{Kernel Density Estimation}
 In this subsection, we will find the final list of quantiles by combining lists of quantiles from scenarios. We use the kernel density estimation (KDE) with a Gaussian kernel. The Gaussian mixture model is a popular way to estimate the multi-modal distributions, which has multiple peaks when we have several distributions of different shapes~\cite{Haben}. Besides, by building a final list of quantile, we can have a non-decreasing list of quantiles. We also build the final list of quantiles by simply collecting samples from each list of quantiles. 
 
@@ -760,6 +1026,31 @@ In this paper, we use \textit{cooperative game theory} as a cost allocation meth
 %\label{fig:1}       % Give a unique label
 %%\end{figure}
 
+
+
+
+
+
+
+
+
+
+
+\subsection{Distribution Expansion}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
 \subsubsection{Core}
 Core which is the concept expanded \textit{Pareto efficiency} includes feasible set by some axioms. 
 \begin{equation}
