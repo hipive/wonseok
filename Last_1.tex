@@ -1017,8 +1017,16 @@ In order to test the performance of the KDE, we just simply generate the final d
 %\label{fig:1}       % Give a unique label
 %\end{figure}
 
-\section{Cost Allocation}
-\textcolor{red}{With the arrival of the modern electricity market, the cost allocating method of public-use facilities such as power transmission lines are becoming more complicated~\cite{Kirschen2018}. For example, in the past, the cost allocation of power transmission lines were carried out by calculating the amount of flow at each plant based on the peak time~\cite{shahide}. However, revenue from the power system not only arises from increased flow, but also directly or incidentally, such as increased system stability and flexibility. This approach is inefficient and incurring unnecessary costs, although it may be the fairest way to examine all structures that generate revenue in many ways and assess contributions. Thus, today's cost allocation approach have become more complex and equitable, such as a calculating network usage using impedance~\cite{conejo2007z}, an AC power flow Sensitivities~\cite{chaitusaney2002ac}, and a game theory~\cite{zolezzi2002}.}
+\section{Stochastic Cooperative Games}
+\textcolor{red}{Typical SCG is defined by the following formula. 
+\[\Gamma  = (N,{\nu _S},{\kappa _i})\] \[{\nu _S} = [{\nu _S} \in {L^1}(\Re )|{\nu _S} = \int {\rho (S) \cdot \theta (S)dt} ]\] Where $N$ means a set of players participating in game, and $S (S \in N)$ means a subset of players called coalition. The first element of the SCG's tuple is player, and the second element is random variable of pay-off dependent on the coalition. A random variable $\nu_S$ is in a space that satisfied ${\nu _S} \to {L^1}(\Re )$, and consequently contains the probability of a particular coalition ($\rho(S)$) and premium ($\theta(S)$)for it. The third element, $\kappa_i$ indicates reasonable behavior of the player. That is, cooperative games assume that players set their premium in advantageous direction, such as profit maximization or risk avoidance.}
+
+\textcolor{red}{There are two main operating principles of SCG, one is that pay-off is determined by probability using the fact that future observations are not known, and the other is that premium based on probability can be transferred to other players.}
+\subsection{Core}
+% Why use core
+
+\subsection{Nucleolus}
+% Why use nucleolus
 
 \subsection{Cooperative Game Theory}
 In this paper, we use \textit{cooperative game theory} as a cost allocation method based on benefit. Generally, game theory is divided into two. One is \textit{cooperative game theory} (CGT) and the other is \textit{non-cooperative game theory} (NCGT). NCGT do not seek collective gain through discussion or cooperation between the parties, but consider probabilistic value according to personal choice. The CGT can discussion each other. Thus, interested parties form aggregation called \textit{coalition}, pursue common benefit. Because of characteristic that participants can discussion, it can deduce more accurate result~\cite{zolezzi2002}. The possibility of discussion should be carried out with the game theory considering the combination of participants. Progressing the game theory in all cases can reveal the contribution of each participant in the game, enabling intrinsic characteristics. The structural features of the CGT used in the paper are as follows:
@@ -1461,7 +1469,6 @@ Thus, Multiplying the ratio shown in the table by the cost of expanding the tran
 %\label{Parameter}
 %{\bf{\hat P}} = \arg \,\mathop {\min }\limits_F \,{E_{{\bf{X}},{\bf{y}}}}\left[ {L({\bf{y}},F({\bf{X}},{\bf{P}}))} \right].
 %\end{equation}
-
 
 
 
