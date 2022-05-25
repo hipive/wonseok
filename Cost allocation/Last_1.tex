@@ -1018,10 +1018,26 @@ In order to test the performance of the KDE, we just simply generate the final d
 %\end{figure}
 
 \section{Stochastic Cooperative Games}
-\textcolor{red}{Typical SCG is defined by the following formula. 
-\[\Gamma  = (N,{\nu _S},{\kappa _i})\] \[{\nu _S} = [{\nu _S} \in {L^1}(\Re )|{\nu _S} = \int {\rho (S) \cdot \theta (S)dt} ]\] Where $N$ means a set of players participating in game, and $S (S \in N)$ means a subset of players called coalition. The first element of the SCG's tuple is player, and the second element is random variable of pay-off dependent on the coalition. A random variable $\nu_S$ is in a space that satisfied ${\nu _S} \to {L^1}(\Re )$, and consequently contains the probability of a particular coalition ($\rho(S)$) and premium ($\theta(S)$)for it. The third element, $\kappa_i$ indicates reasonable behavior of the player. That is, cooperative games assume that players set their premium in advantageous direction, such as profit maximization or risk avoidance.}
+%%%%%%%%% Basic Description %%%%%%%%%%%%
+\textcolor{red}{The SCG is a theory designed to be used when uncertainty is included in payoff or the factors contributing to payoff decisions within algorithm in existing CG. A general CG usesa a sort of solver to determine the final payoff based on the coalition participating in the game and utility function they have. However, such classical CG is deterministic algorithms that cannot accommodate variability of internal parameter. The SCG proposed to incorporate parameters with probability distribution into CG consist of three main components.}
+\begin{equation}
+\Gamma  = (N,{\Phi_{\mathcal{F}_S}^\alpha},{\kappa _i})
+\end{equation}
+ 
+\textcolor{red}{The SCG process is generally referred to as $\Gamma$, and the first component to this is $N$. $N$ means a complete of all players participating in game, and $S (S \in N)$ means a subset of players called coalition.}
 
-\textcolor{red}{There are two main operating principles of SCG, one is that pay-off is determined by probability using the fact that future observations are not known, and the other is that premium based on probability can be transferred to other players.}
+%%%%%%%%% Second Component %%%%%%%%%%%%
+\textcolor{red}{The second element is random variable of pay-off dependent on the coalition. In SCG, the random variable ${\Phi_S^\alpha}$ is calculated as the probability distribution ${\mathcal{F}_S}: {\mathcal{F}} \to {L^1}(\Re )$ of the utility function of coalition $\nu_S$ and quantile $\alpha\;(\alpha \in (0, 1))$.}
+\begin{equation}
+\Phi _{{\mathcal{F}_S}}^\alpha : = \sup \left\{ {\Phi |{\mathcal{F}_S} \le \alpha ,{\mathcal{F}_S} \in {L^1}(\Re ),\alpha  \in (0,1)} \right\}
+\end{equation}
+
+\textcolor{red}{The third element, $\kappa_i$ indicates reasonable behavior of the player. That is, cooperative games assume that players set their premium in advantageous direction, such as profit maximization or risk avoidance.}
+
+
+\subsection{Basic Principal}
+% Basic principal
+
 \subsection{Core}
 % Why use core
 
