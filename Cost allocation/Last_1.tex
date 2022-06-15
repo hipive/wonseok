@@ -158,43 +158,35 @@ Gibbs sampling, Stochastic cooperative game theory, Distribution network expansi
 % --------------------- Currnet Status ------------------------------
 % --------------------- Why we have to forecast the load? 
 
-\subsubsection{Current}
-\textcolor{teal}{The distribution should be expanded to accept the pear-to-pear transaction, distributed generated renewable energy sources (RES), and storage systems.}
-\textcolor{red}{Grid-modernization (GM) based on decarbonization is activated, and the penetration ratio of RES into distribution is increasing. In distribution, RES enables consumers to produce surplus resources that exceed their demand. Consequently, consumers have become compatible entities capable of selling surplus energy, rather than passive subject that only consume electricity. However, conventionally constructed distribution networks have uni-directional characteristics and are not suitable for embracing new market for GM. 
-In addition, apperance of energy storage has led to concept of electricity transport being removed from physical constraints, and demand shifting in various forms not meshed with criteria demand can be performed inside distribution. For example, arbitrage for charging electricity in a period low retail price and discharging in a high price can be realized, and market can be formed by using storage system in vehicle to grid (V2G). Regardless of market, all forms of energy transactions using energy storage use distribution, but existing networks were installed without reflecting these markets.Therefore, to fully accept GM, new network expansion is required at distribution step.}
 
-% 각각 3가지에 대해서 왜 새로운 GRID mordenization 상황에서 배전망 업그레이드가 필요한지 적자.
+%% Why do we have to expand the distribution??
+\textcolor{red}{Grid-modernization (GM) based on decarbonization is activated, and the penetration ratio of a renewable energy resource (RES) into distribution is increasing. In distribution, RES enables consumers to produce surplus resources that exceed their demand~\cite{kotler2010prosumer}. Consequently, consumers have become compatible entities capable of selling surplus energy, rather than a passive subject that only consume electricity. However, since conventionally constructed distribution networks have uni-directional characteristics and are not suitable for embracing new markets for GM~\cite{haffner2008multistage}. 
+In addition, the appearance of energy storage has led to the concept of electricity transport without physical constraints, and demand shifting in various forms not meshed with criteria demand is performed inside distribution~\cite{bradbury2014economic}. For example, arbitrage for charging electricity at a period low retail price and discharging at a high price can be realized, and the market can be formed by using a storage system in the vehicle to grid (V2G). Regardless of the market, all forms of energy transactions using energy storage use distribution, but existing networks were installed without reflecting these markets. Therefore, to fully accept GM, new network expansion is required at the distribution step.}
 
-\vspace{1in}
+%% How did they allocate costs before??
+\textcolor{red}{Once distribution network expansion is planned, network operators, generators, load service entities (LSEs), and all other utilities related to the expansion line must participate in the cost allocation. A typical cost allocation method is the postage-stamp~\cite{kirschen1997contributions}. The postage-stamp determines the cost allocation ratio by calculating the flow of the expansion line and the percentage of generation or demand derived from the line. Another method is to determine the utilities according to the capacity, region, and performance of the line in advance~\cite{fink2011survey}. Since such a system has an exclusive characteristic for line expansion, have a different sharing method for each country or region.} 
 
+%% What's wrong with traditional method - Why we need a new cost allocation methodology??
+\textcolor{red}{However, classic methods cause irrationality. In the case of postage-stamp, since the ratio is determined by injection and demand without considering the specific contribution of each utility to the expansion line, the derived results cannot be determined to be the result of pure expansion line~\cite{shahidehpour2003market}. Furthermore, the network complexity is increased by the inflow of various resources into the system, and the accuracy of the existing method is further reduced as relay facilities for system stability are linked together with the line expansion.}
 
+%% Cost allocation methodology reviews~~~~~~~~~~~~~~~
+%% Usage method
+\textcolor{red}{Much literature has been studied to solve the classic method. One of that is calculating the line usage mathematically line for each utility mathematically. In~\cite{conejo2007z_, abhyankar2006optimization}, AC power flow is calculated using the impedance of each line to grasp the current flow adjacent to the line requiring cost allocation. After that, usage of demand and generator using flow is defined, and costs are allocated through annual average flow. In~\cite{galiana2003transmission, gil2005multiarea}, using equivalent bilateral exchange (EBE) method is described. EBE uses impedance to calculate the sensitivity matrix between demand and generation. In other words, nodes and nodes connected to physical lines by Kirchhoff's law are equivalent to power, and the sensitivity between nodes can be realized by a matrix. By calculating this in a chain, the sensitivity of generation or demand to the line can be determined, and the usage of each node is calculated using DC power flow. But, the usage-based method cannot measure the contribution of relay facilities likewise classic methods.}
 
+%% Game Theory
+\textcolor{red}{Another cost allocation method is benefit-based game theory. Since the cost allocation through game theory is mainly based on the benefits of each utility according to the line expansion, it can derive results without contribution.Usually, when using game theory to allocate costs, problem is solved by using one of various solutions such as shapely value, kernel, or nucleolus based on benefit. In~\cite{tsukamoto1996allocation}, typically using cooperative game theory (CGT) based on Pareto efficiency is used to solve the allocating problem. The paper~\cite{ruiz2007effective} used Shapely value and~\cite{evans2003cost} used kernel theory. In~\cite{zolezzi2002transmission, erli2005transmission} shows nucleolus.}
 
+%% Another problem
+\textcolor{red}{However, as the system became GM, the aforementioned method faced other problems. For example, in a kind of RES, PV operates at maximum in peak hours~\cite{edwards2009energy}, and in this case, the classical cost allocation method may result in lower overall time to time line utilization but relatively higher cost allocating compared to base generators. Of course, in the case of resources that cannot control generation volume, the degree of line utilization is corrected by multiplying the factor called contribution~\cite{chung2005transmission}, but it is not accurate considering only fragmented parts. In addition, connecting RES with energy storage service (ESS) may affect cost allocating by intentionally storing energy during hours and limiting bidding capacity. Accordingly, the network itself becomes complicated, and a new cost allocation system is required when various forms of resources appear in distribution.}
 
+%% New discussable content
+\textcolor{red}{In a situation where renewable energy is prevalent, the cost allocation of expanding the distribution needs to be discussed anew. First, uncertain factors such as energy production and demand for RES should be dealt with stochastically. Existing cost allocation tends to depend on the resulting value without considering the reliability of the predicted value. Cost allocation through fragmented estimates cannot guarantee fair cost allocation in the highly volatile GM market. Second, in allocation, it is necessary to set a specific period, not a peak. Ensuring net stability in peak periods is the dominant objective of the line expansion, but as mentioned above, costs may be biased toward specific RESs.}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-% 전통적인 distribution 또는 내용을 찾기 힘들면 transmission의 확장 방법
-\textcolor{red}{Generally, cost allocation for most networks, including distribution, is determined by demand for peak load period.}
-
-
+\textcolor{red}{In this paper, we propose a robust distribution network expansion cost allocation method in GM situation. First, we proceed probabilistic long-term forecast for demand and RES's generation.}
 
 % 전통적인 distribution expansion plan을 통해서 수요와 신재생에너지 예측이 필요하다는 것을 도출한다.
-\subsubsection{Distribution Expansion Plan}
-\textcolor{magenta}{Generally, the distribution expansion plan can be scheduled to satisfy the maximum load flows.
+%\subsubsection{Distribution Expansion Plan}
+%\textcolor{magenta}{Generally, the distribution expansion plan can be scheduled to satisfy the maximum load flows. 
 %
 %
 %
@@ -204,7 +196,7 @@ In addition, apperance of energy storage has led to concept of electricity trans
 %
 %
 %
-Then, we have to perform the long-term load and RES forecasting.}
+%Then, we have to perform the long-term load and RES forecasting.}
 
 
 
@@ -236,7 +228,7 @@ Then, we have to perform the long-term load and RES forecasting.}
 
 
 %%  ------------   About the forecasting duration.--------------------
-Long-term forecasting covers the load forecasting for three years or more. Normally in long-term forecasting, in order to reflect the effect of human activity on the load in the future, the effects of economic growth should be considered~\cite{Tao2014}. 
+Long-term forecasting covers the load forecasting for three years or more. Normally in long-term forecasting, in order to reflect the effect of human activity on the load in the future, the effects of economic growth should be considered~\cite{Hong2014}. 
 
 
 
@@ -244,7 +236,7 @@ Long-term forecasting covers the load forecasting for three years or more. Norma
 
 
 % 예비력 정도는 long-term 사례로 적어도 되겠다.
-For example, the required amount of ancillary services should be estimated a month ahead based on load forecasts, so short-term forecasting is not a proper approach for forecasting load, and long-term forecasting is not as accurate as mid-term forecasting. Furthermore, mid-term load forecasting is required to prepare unit commitment and maintenance schedules a month ahead of time based on the load forecasts~\cite{burger2014managing}.
+For example, the required amount of ancillary services should be estimated a month ahead based on load forecasts, so short-term forecasting is not a proper approach for forecasting load, and long-term forecasting is not as accurate as mid-term forecasting. Furthermore, mid-term load forecasting is required to prepare unit commitment and maintenance schedules a month ahead of time based on the load forecasts~\cite{Burger2014}.
 
 
 
@@ -252,14 +244,14 @@ For example, the required amount of ancillary services should be estimated a mon
 
 % 원래는 mid-term에 대해 적힌 내용인데 long-term에 대해서도 적자.
 %% ----------Why is the Long-term forecast complex-------------------
-While mid-term forecasting has many benefits, mid-term load forecasting is the most complex. Ordinary load forecasting models use NWP which includes weather variables like temperature, humidity, data, and time~\cite{xie2016temperature} that affect humans' load usage. If NWP data exists, the load can be predicted using the relationship between the NWP and the load~\cite{bacher2013short}. However, NWP can only produce effective results when used for forecasts of up to two weeks. So, it is difficult to use NWP data for mid-term load forecasting. 
+While mid-term forecasting has many benefits, mid-term load forecasting is the most complex. Ordinary load forecasting models use NWP which includes weather variables like temperature, humidity, data, and time~\cite{Xie2016a} that affect humans' load usage. If NWP data exists, the load can be predicted using the relationship between the NWP and the load~\cite{Bacher2013}. However, NWP can only produce effective results when used for forecasts of up to two weeks. So, it is difficult to use NWP data for mid-term load forecasting. 
 %%-------------------------------------------------------------------
 
 
 
 
 %%--------- The method when existing method cannot use---------------
-When NWP data is unavailable, time series models have been used to forecast loads recursively~\cite{TIMESERIES}. Another method involves estimating future NWP scenarios from the historical weather data, and using these scenarios to predict future load~\cite{xie2016temperature}. 
+When NWP data is unavailable, time series models have been used to forecast loads recursively~\cite{Lee2018}. Another method involves estimating future NWP scenarios from the historical weather data, and using these scenarios to predict future load~\cite{Xie2016a}. 
 
 
 
@@ -271,7 +263,7 @@ When NWP data is unavailable, time series models have been used to forecast load
 \textcolor{cyan}{In order to overcome the low accuracy of long-term load forecasting, generally the probabilistic load forecasting methods have been used to provide the probabilistic distribution of load forecasts.}
 
 
-Recently, probabilistic load forecasting has been proposed to circumvent unavailable NPW~\cite{xie2016temperature}. In probabilistic load forecasting, future NWP scenarios are synthesized and converted to future load scenarios, and then, point forecasts can be made based on the mean or median of the marginal distribution of the future load scenarios.
+Recently, probabilistic load forecasting has been proposed to circumvent unavailable NPW~\cite{Xie2016a}. In probabilistic load forecasting, future NWP scenarios are synthesized and converted to future load scenarios, and then, point forecasts can be made based on the mean or median of the marginal distribution of the future load scenarios.
 %%------------------------------------------------------------------
 
 
@@ -281,7 +273,7 @@ Recently, probabilistic load forecasting has been proposed to circumvent unavail
 
 
 %% ------------------------ Generating Scenario -------------------------
-There is much literature about mid-term probabilistic load forecasting. One way to synthesize NWP scenarios is to reuse the historical data. In~\cite{Tao2014}, ten years of the historical temperature data was used to generate 10 different temperature scenarios, which were then used to predict 10 different load forecasts. However, only a limited number of scenarios can be obtained from historically measured data, and this will reduce forecasting accuracy. In~\cite{Jingrui2015}, to increase the number of scenarios, forecasting errors were collected by comparing the predicted values with the actual values. The errors were modeled as a normal distribution, where an infinite number of scenarios can be sampled.  Many participants at global energy forecasting competition  (GEFCom) 2017 used an hourly sampling method to synthesize temperature scenarios~\cite{hong2019global}. 
+There is much literature about mid-term probabilistic load forecasting. One way to synthesize NWP scenarios is to reuse the historical data. In~\cite{Hong2014}, ten years of the historical temperature data was used to generate 10 different temperature scenarios, which were then used to predict 10 different load forecasts. However, only a limited number of scenarios can be obtained from historically measured data, and this will reduce forecasting accuracy. In~\cite{Xie2017}, to increase the number of scenarios, forecasting errors were collected by comparing the predicted values with the actual values. The errors were modeled as a normal distribution, where an infinite number of scenarios can be sampled.  Many participants at global energy forecasting competition (GEFCom) 2017 used an hourly sampling method to synthesize temperature scenarios~\cite{Hong2019}. 
 
 
 \vspace{1in}
@@ -306,9 +298,9 @@ There is much literature about mid-term probabilistic load forecasting. One way 
 
 
 
-However sampling from one-dimensional distribution cannot consider relative humidity (RH) which has a significant effect on load forecasting~\cite{xie2016relative}. 
+However sampling from one-dimensional distribution cannot consider relative humidity (RH) which has a significant effect on load forecasting~\cite{Xie2016b}. 
 
-Also~\cite{xie2017variable} showed that the hourly or daily ahead data for temperature can be used to improve the preciseness of load forecasting. But, hourly samples cannot consider the joint probability between samples of different times. Also using hourly independent samples, matching time ahead data might deteriorate the correlation between features.  
+Also~\cite{Xie2017a} showed that the hourly or daily ahead data for temperature can be used to improve the preciseness of load forecasting. But, hourly samples cannot consider the joint probability between samples of different times. Also using hourly independent samples, matching time ahead data might deteriorate the correlation between features.  
 %%
 
 
@@ -377,7 +369,7 @@ Also~\cite{xie2017variable} showed that the hourly or daily ahead data for tempe
 
 
 \subsubsection{Cost Allocation}
-\textcolor{olive}{The cost of a scheduled distribution expansion plan should be allocated to stakeholders. There have been several studies on the transmission expansion cost allocation.}
+\textcolor{red}{The cost of a scheduled distribution expansion plan should be allocated to stakeholders. There have been several studies on the transmission expansion cost allocation.}
 
 
 
@@ -459,7 +451,6 @@ Our contributions are as follows:
 	\item We develop a recursive algorithm that can calculate the optimal amounts of flexible resources.
 	\item We measure the value of the smoothing effect as a function of the total wind power capacity.
 \end{enumerate}
-
 
 
 
@@ -713,7 +704,7 @@ Therefore, we collect data for a few hours ahead and a few hours later. At the s
 
 
 \subsection{Gibbs Sampling}
-In this study, the Gibbs sampling is used to sample sets of temperature and dew point for each zone. The Gibbs sampling is a kind of Markov chain Monte Carlo (MCMC) sampling algorithm, and it can also be seen as a special case of the Metropolis-Hastings sampling algorithm~\cite{Bishop} . As well as the Gibbs sampling, there are several sampling techniques in a graphical modeling: ancestral sampling, importance sampling, likelihood-weighted Sampling, logic sampling, Rao-Black wellisation, and Gibbs sampling. Among these techniques, the Gibbs sampling is used in our application since it is simple and fast~\cite{Gibbs}.
+In this study, the Gibbs sampling is used to sample sets of temperature and dew point for each zone. The Gibbs sampling is a kind of Markov chain Monte Carlo (MCMC) sampling algorithm, and it can also be seen as a special case of the Metropolis-Hastings sampling algorithm~\cite{Bishop2006} . As well as the Gibbs sampling, there are several sampling techniques in a graphical modeling: ancestral sampling, importance sampling, likelihood-weighted Sampling, logic sampling, Rao-Black wellisation, and Gibbs sampling. Among these techniques, the Gibbs sampling is used in our application since it is simple and fast~\cite{Gibbs}.
 
 
 %%% Key idea of gibbs sampling
@@ -950,7 +941,7 @@ then the gradient can be simply calculated as
 
 
 %%%% Quantile Regression
-In this study, we should use the quantile loss function, which is defined in~\cite{Ridgeway} as
+In this study, we should use the quantile loss function, which is defined in~\cite{Ridgeway2012} as
 \begin{equation}
 \begin{aligned}
 \label{QuantileLossFunction}
@@ -1004,7 +995,7 @@ Finally, when the GBM forecasts the future value for new data, GBM generates out
 
 \newpage
 \subsection{Kernel Density Estimation}
-In this subsection, we will find the final list of quantiles by combining lists of quantiles from scenarios. We use the kernel density estimation (KDE) with a Gaussian kernel. The Gaussian mixture model is a popular way to estimate the multi-modal distributions, which has multiple peaks when we have several distributions of different shapes~\cite{Haben}. Besides, by building a final list of quantile, we can have a non-decreasing list of quantiles. We also build the final list of quantiles by simply collecting samples from each list of quantiles. 
+In this subsection, we will find the final list of quantiles by combining lists of quantiles from scenarios. We use the kernel density estimation (KDE) with a Gaussian kernel. The Gaussian mixture model is a popular way to estimate the multi-modal distributions, which has multiple peaks when we have several distributions of different shapes~\cite{Haben2016}. Besides, by building a final list of quantile, we can have a non-decreasing list of quantiles. We also build the final list of quantiles by simply collecting samples from each list of quantiles. 
 
 
 
@@ -1017,12 +1008,12 @@ The Gaussian mixture model (GMM) is another way to combine several distributions
 
 
 %%%%%%%%% KDE Formulation %%%%%%%%%%%%
-The basic idea of the KDE in~\cite{Duda} as follows. In the KDE, the probability density of a new random variable $x$ is measured by adding all numbers of samples within the fixed range around $x$. The number of samples $K$ can be calculated as
+The basic idea of the KDE in~\cite{Duda2012} as follows. In the KDE, the probability density of a new random variable $x$ is measured by adding all numbers of samples within the fixed range around $x$. The number of samples $K$ can be calculated as
 \begin{equation}
 \label{K}
 K = \sum\limits_{n = 1}^N {\kappa  \left( {\frac{{x - {x_n}}}{h}} \right)},
 \end{equation}
-where $N$ is the number samples, $x_n$ is the $n$th sample, $\kappa$ is the kernel function of counting, and $h$ is the smoothing parameter. The $h$ trades off between the variance and bias~\cite{Bishop}. A large $h$ leads to a very smooth distribution, but a small $h$ leads to a noisy distribution, where each variable has a peak in the worst case.
+where $N$ is the number samples, $x_n$ is the $n$th sample, $\kappa$ is the kernel function of counting, and $h$ is the smoothing parameter. The $h$ trades off between the variance and bias~\cite{Bishop2006}. A large $h$ leads to a very smooth distribution, but a small $h$ leads to a noisy distribution, where each variable has a peak in the worst case.
 %%
 It should be noted that $x$ is a scalar variable. By normalizing it, we can get the probability density of $x$ as
 \begin{equation}
@@ -1505,7 +1496,7 @@ Thus, Multiplying the ratio shown in the table by the cost of expanding the tran
 
 
 \bibliographystyle{IEEEtran}
-\bibliography{LoadFore_10}
+\bibliography{forecasting}
 
 
 % biography section
