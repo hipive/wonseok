@@ -1,0 +1,113 @@
+\renewcommand{\rmdefault}{ptm} % Arial:phv, Roman:ptm
+\renewcommand{\sfdefault}{ptm} % Arial
+\documentclass[journal]{IEEEtran} % onecolumn,12pt
+\hyphenation{op-tical net-works semi-conduc-tor}
+
+%\usepackage{program}
+\usepackage[caption=false,font=footnotesize]{subfig}
+\usepackage{color}
+\usepackage{cite}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\newtheorem{theorem}{Theorem}
+\newtheorem{prop}{Proposition}
+\newcommand{\indep}{\rotatebox[origin=c]{90}{$\models$}}
+\usepackage{epstopdf}
+\usepackage{comment}
+\usepackage{multirow}
+\usepackage{algorithm2e}
+\usepackage{threeparttable}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{amsmath}
+\graphicspath{{./Pictures/}}
+\definecolor{orange}{rgb}{1,0.5,0}
+
+
+\begin{document}
+\title{The Bidding Strategy for Load Service Entity in Real-Time Virtual Retail Market using Stochastic Dual Dynamic Probability}
+
+\author{Wonseok~Choi,~\IEEEmembership{Student Member,~IEEE,} 
+	~Duehee~Lee,~\IEEEmembership{Member,~IEEE,}
+	}
+
+
+% The paper headers
+\markboth{IEEE Transaction on Smart Grid}%
+{Shell \MakeLowercase{\textit{et al.}}: Bare Demo of IEEEtran.cls for Journals}
+\maketitle
+
+\begin{abstract}
+As the will of decarbonization is realized in the electricity market around the world, the renewable energy sources are penetrating in the system. However, the system stability tend s to become unstable due to reduction of generation from underlying source and intermittent characteristics of renewable energy. Therefore, it is difficult to secure system stability only by controlling generation, so the system is trying to induce consumer participation in the market. Consumer participation in the market is achieved by controlling demand, to do this, the price signal of load service entities (LSE) is required. The real-time pricing (RTP) is one of the tariff that can induce demand shifting by changing retail prices in real time. In this paper, we propose bidding strategy of LSE for RTP tariff. The proposed bidding strategy has a objective function which maximizes income of LSE and uses stochastic dual dynamic programming (SDDP) theory to consider probabilities and time elements. In addition, after establishing proposed theory, we show example of use of bidding strategy through numerical experiment.
+\end{abstract}
+
+
+
+%================================================================
+
+
+
+\section{Introduction}
+%%%%%%%%%%%%%======== Nomencluster =======%%%%%%%%%%%%%
+%%%%%%%%%%%%%======== Why we need RTP tariff =======%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%-------- Decarbonization --------%%%%%%%%%%%%%
+\IEEEPARstart{A}{S} intermittent resource penetration expands, efforts to maintain market reliability are emphasized. To secure reliability, the modern electricity system takes into account the demand shifting~\cite{pazouki2014uncertainty}. Demand shifting provides systematic accessibility to power balance while also providing cost advantages. The peak demand shifting reduces the marginal price and decrease the electricity usage cost~\cite{earle2000demand}. Further, by flattening the demand, the generation cost reduce and perform efficient reliable operation~\cite{goldman2005customer}. 
+In addition to this, it decrease resource dependence on local and reduces market power~\cite{rassenti2003controlling}.
+
+Despite the effect of demand transfer, empirical results are insufficient~\cite{kirschen2003demand}. Since electricity prices are not intensive but are hierarchically stacked prices, the price range that decreases compared to the demand shifting capacity is small~\cite{kirschen2003demand}. Also, demand can be classified as daily necessities, but in the case of household, there is not enough pretext to participate in the demand shifting by reducing consumption. The flat tariff is also a hindrance. The flat tariff does not allow electricity users to take risks with their usage, weaken their willingness to curtail, and cannot induce participate in the market with uniform price signal~\cite{boeve2021asset}.
+
+\section{Market}
+
+\section{Theory Description}
+\subsection{SDDP}
+
+\section{Bidding Strategy Methodology}
+\newpage
+
+
+
+
+
+
+
+
+\section{Conclusion}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\ifCLASSOPTIONcaptionsoff
+  \newpage
+\fi
+
+
+\bibliographystyle{IEEEtran}
+\bibliography{sddp_bib}
+
+
+
+\end{document}
+
+
+
+
+
+
+
